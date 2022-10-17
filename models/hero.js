@@ -5,6 +5,9 @@ const HeroScheme = new mongoose.Schema(
     name: {
       type: String,
     },
+    fullname: {
+      type: String,
+    },
     element: {
       type: String,
     },
@@ -14,11 +17,27 @@ const HeroScheme = new mongoose.Schema(
     role: {
       type: String,
     },
-    weapons: {
-      type: [{}],
+    start: {
+      type: Number,
     },
-    img: {
-      type: String,
+    weapons: {
+      type: Map,
+      of: String,
+    },
+    imgs: {
+      portrait: {
+        type: String,
+      },
+      illustration: {
+        type: String,
+      },
+      background: {
+        type: String,
+      },
+      sprites: {
+        type: Map,
+        of: String,
+      },
     },
   },
   {
