@@ -2,11 +2,17 @@ const { check, validationResult } = require("express-validator");
 
 const validatorCreateHeroe = [
   check("name").exists().notEmpty(),
+  check("fullname").exists().notEmpty(),
   check("element").exists().notEmpty(),
   check("specie").exists().notEmpty(),
   check("role").exists().notEmpty(),
+  check("rarity").exists().notEmpty(),
   check("weapons").exists().notEmpty(),
-  check("img").exists().notEmpty(),
+  check("imgs").exists().notEmpty(),
+  check("imgs.portrait").exists().notEmpty(),
+  check("imgs.illustration").exists().notEmpty(),
+  check("imgs.background").exists().notEmpty(),
+  check("imgs.sprites").exists().notEmpty(),
   (req, res, next) => {
     try {
       validationResult(req).throw();

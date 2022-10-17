@@ -17,12 +17,11 @@ const HeroScheme = new mongoose.Schema(
     role: {
       type: String,
     },
-    start: {
-      type: Number,
+    rarity: {
+      type: String,
     },
     weapons: {
-      type: Map,
-      of: String,
+      type: {},
     },
     imgs: {
       portrait: {
