@@ -14,6 +14,7 @@ const { matchedData } = require("express-validator");
 
 app.use(cors());
 app.use(express.json());
+app.set("trust proxy", true);
 
 // PORT
 const port = process.env.PORT || 4000;
@@ -22,17 +23,16 @@ app.listen(port, () => {
   console.log(`tu app esta escuchando por el puerto http://localhost:${port}`);
 });
 
-// ROUTESSS
+// ROUTESSS HEROESSSSS
 
 app.get("/", (req, res) => {
-  res.send("welcome to guardian tales API");
+  const ip = req.header("x-forwarded-for") || req.socket.remoteAddress;
+  res.send(`welcome to guardian tales API, esta es la ip ${ip}`);
 });
 
 app.get("/api/guardian-tales", (req, res) => {
   res.send("to see the list of heroes use /heroes");
 });
-
-// ROUTES HEROES
 
 app.get("/api/guardian-tales/heroes", async (req, res) => {
   try {
@@ -104,5 +104,11 @@ app.delete(
     }
   }
 );
+
+// RUTAS USUARIOS
+
+app.get("/gt/user", (req, res) => {
+  res.send("USUARIOS");
+});
 
 dbConnect();
