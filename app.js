@@ -26,8 +26,7 @@ app.listen(port, () => {
 // ROUTESSS HEROESSSSS
 
 app.get("/", (req, res) => {
-  const ip = req.header("x-forwarded-for") || req.socket.remoteAddress;
-  res.send(`welcome to guardian tales API, esta es la ip ${ip}`);
+  res.send(`welcome to guardian tales API`);
 });
 
 app.get("/api/guardian-tales", (req, res) => {
@@ -36,6 +35,10 @@ app.get("/api/guardian-tales", (req, res) => {
 
 app.get("/api/guardian-tales/heroes", async (req, res) => {
   try {
+    const ip = req.header("x-forwarded-for") || req.socket.remoteAddress;
+    if (ip !== process.env.KEY) {
+      handleHttpError(res, "NOT_CREDENTIAL", 401);
+    }
     const data = await HeroScheme.find({});
     res.send({ data });
   } catch (e) {
