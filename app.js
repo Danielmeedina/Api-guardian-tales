@@ -36,7 +36,7 @@ app.get("/api/guardian-tales", (req, res) => {
 app.get("/api/guardian-tales/heroes", async (req, res) => {
   try {
     const ip = req.header("x-forwarded-for") || req.socket.remoteAddress;
-    if (ip !== process.env.KEY) {
+    if (ip != process.env.KEY) {
       handleHttpError(res, "NOT_CREDENTIAL", 401);
     }
     const data = await HeroScheme.find({});
