@@ -50,7 +50,7 @@ app.get(
     try {
       req = matchedData(req);
       const { name } = req;
-      const data = await HeroScheme.find({ name: name });
+      const data = await HeroScheme.findOne({ name: name });
       if (data.length == 0) {
         throw new Error();
       }
