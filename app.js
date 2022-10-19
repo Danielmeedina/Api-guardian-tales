@@ -8,6 +8,7 @@ const {
   validatorCreateHeroe,
   validatorGetDetails,
   validatorIdHeroe,
+  validatorCredential,
 } = require("./validators/heroe");
 const { handleHttpError } = require("./helpers/handleError");
 const { matchedData } = require("express-validator");
@@ -35,10 +36,6 @@ app.get("/api/guardian-tales", (req, res) => {
 
 app.get("/api/guardian-tales/heroes", async (req, res) => {
   try {
-    const ip = req.header("x-forwarded-for") || req.socket.remoteAddress;
-    if (ip != process.env.KEY) {
-      handleHttpError(res, "NOT_CREDENTIAL", 401);
-    }
     const data = await HeroScheme.find({});
     res.send({ data });
   } catch (e) {
@@ -66,6 +63,7 @@ app.get(
 
 app.post(
   "/api/guardian-tales/heroes",
+  validatorCredential,
   validatorCreateHeroe,
   async (req, res) => {
     try {
@@ -80,6 +78,7 @@ app.post(
 
 app.put(
   "/api/guardian-tales/heroes/:id",
+  validatorCredential,
   validatorCreateHeroe,
   validatorIdHeroe,
   async (req, res) => {
@@ -95,6 +94,7 @@ app.put(
 
 app.delete(
   "/api/guardian-tales/heroes/:id",
+  validatorCredential,
   validatorIdHeroe,
   async (req, res) => {
     try {
@@ -107,11 +107,5 @@ app.delete(
     }
   }
 );
-
-// RUTAS USUARIOS
-
-app.get("/gt/user", (req, res) => {
-  res.send("USUARIOS");
-});
 
 dbConnect();

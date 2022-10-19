@@ -37,6 +37,22 @@ const validatorGetDetails = [
   },
 ];
 
+const validatorCredential = [
+  (req, res, next) => {
+    try {
+      const ip = req.header("x-forwarded-for") || req.socket.remoteAddress;
+      if (ip != process.env.KEY) {
+        handleHttpError(res, "NOT_CREDENTIAL", 401);
+      }
+      validationResult(req).throw();
+      return next();
+    } catch (err) {
+      res.status(403);
+      res.send({ errors: err.array() });
+    }
+  },
+];
+
 const validatorIdHeroe = [
   check("id").exists().notEmpty().isMongoId(),
   (req, res, next) => {
@@ -54,4 +70,5 @@ module.exports = {
   validatorCreateHeroe,
   validatorGetDetails,
   validatorIdHeroe,
+  validatorCredential,
 };
