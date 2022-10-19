@@ -37,7 +37,7 @@ app.get("/api/guardian-tales", (req, res) => {
 app.get("/api/guardian-tales/heroes", async (req, res) => {
   try {
     const data = await HeroScheme.find({});
-    res.send({ data });
+    res.send(data);
   } catch (e) {
     handleHttpError(res, "ERROR_GET_HEROES");
   }
@@ -54,7 +54,7 @@ app.get(
       if (data.length == 0) {
         throw new Error();
       }
-      res.send({ data });
+      res.send(data);
     } catch (e) {
       handleHttpError(res, "ERROR_GET_HEROE", 404);
     }
@@ -69,7 +69,7 @@ app.post(
     try {
       const body = matchedData(req);
       const data = await HeroScheme.create(body);
-      res.send({ data });
+      res.send(data);
     } catch (e) {
       handleHttpError(res, "ERROR_CREATE_HEROE");
     }
@@ -85,7 +85,7 @@ app.put(
     try {
       const { id, ...body } = matchedData(req);
       const data = await HeroScheme.findOneAndUpdate(id, body);
-      res.send({ data });
+      res.send(data);
     } catch (e) {
       handleHttpError(res, "ERROR_UPDATE_HEROE");
     }
@@ -101,7 +101,7 @@ app.delete(
       req = matchedData(req);
       const { id } = req;
       const data = await HeroScheme.deleteOne({ _id: id });
-      res.send({ data });
+      res.send(data);
     } catch (e) {
       handleHttpError(res, "ERROR_DELETE_HEROE", 404);
     }
