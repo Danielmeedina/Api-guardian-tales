@@ -20,6 +20,10 @@ const HeroScheme = new mongoose.Schema(
     rarity: {
       type: String,
     },
+    history: {
+      type: String,
+      
+    },
     weapons: {
       type: {},
     },
