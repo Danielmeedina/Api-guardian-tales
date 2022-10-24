@@ -7,6 +7,7 @@ const validatorCreateHeroe = [
   check("specie").exists().notEmpty(),
   check("role").exists().notEmpty(),
   check("rarity").exists().notEmpty(),
+  check("history").exists().notEmpty(),
   check("weapons").exists().notEmpty(),
   check("imgs").exists().notEmpty(),
   check("imgs.portrait").exists().notEmpty(),

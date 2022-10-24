@@ -22,7 +22,6 @@ const HeroScheme = new mongoose.Schema(
     },
     history: {
       type: String,
-      
     },
     weapons: {
       type: {},
