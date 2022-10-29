@@ -24,7 +24,7 @@ const HeroScheme = new mongoose.Schema(
       type: String,
     },
     weapons: {
-      type: {},
+      type: [{}],
     },
     imgs: {
       portrait: {
