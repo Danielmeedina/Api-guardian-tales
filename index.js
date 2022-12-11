@@ -27,14 +27,12 @@ app.listen(port, () => {
 // ROUTESSS HEROESSSSS
 
 app.get("/", (req, res) => {
-  res.send(`welcome to guardian tales API`);
+  res.send(
+    `welcome to guardian tales API, to see the list of heroes use /heroes`
+  );
 });
 
-app.get("/api/guardian-tales", (req, res) => {
-  res.send("to see the list of heroes use /heroes");
-});
-
-app.get("/api/guardian-tales/heroes", async (req, res) => {
+app.get("/heroes", async (req, res) => {
   try {
     const data = await HeroScheme.find({});
     res.send(data);
@@ -43,23 +41,19 @@ app.get("/api/guardian-tales/heroes", async (req, res) => {
   }
 });
 
-app.get(
-  "/api/guardian-tales/heroes/:name",
-  validatorGetDetails,
-  async (req, res) => {
-    try {
-      req = matchedData(req);
-      const { name } = req;
-      const data = await HeroScheme.findOne({ name: name });
-      if (data.length == 0) {
-        throw new Error();
-      }
-      res.send(data);
-    } catch (e) {
-      handleHttpError(res, "ERROR_GET_HEROE", 404);
+app.get("/heroes/:name", validatorGetDetails, async (req, res) => {
+  try {
+    req = matchedData(req);
+    const { name } = req;
+    const data = await HeroScheme.findOne({ name: name });
+    if (data.length == 0) {
+      throw new Error();
     }
+    res.send(data);
+  } catch (e) {
+    handleHttpError(res, "ERROR_GET_HEROE", 404);
   }
-);
+});
 
 app.post(
   "/api/guardian-tales/heroes",
